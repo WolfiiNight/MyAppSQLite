@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private var adapter: UserAdapter? = null
 
-//this is a test
+//this is a second test
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
