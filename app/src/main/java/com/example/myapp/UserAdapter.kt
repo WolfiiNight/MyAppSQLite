@@ -1,6 +1,7 @@
 package com.example.myapp
 
 import android.view.LayoutInflater
+import android.view.ScrollCaptureCallback
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -9,10 +10,15 @@ import androidx.recyclerview.widget.RecyclerView
 
 class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
     private var usrList: ArrayList<UserModel> = ArrayList()
+    private var onClickItem:((UserModel) -> Unit) ?= null
 
     fun addItems(items: ArrayList<UserModel>){
         this.usrList = items
-        notifyDataSetChanged()
+        //notifyDataSetChanged()
+    }
+
+    fun setOneClickItem(callback: (UserModel) -> Unit){
+        this.onClickItem = callback
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = UserViewHolder(
@@ -22,6 +28,7 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val usr = usrList[position]
         holder.bindView(usr)
+        holder.itemView.setOnClickListener{ onClickItem?.invoke(usr)}
     }
 
     override fun getItemCount(): Int {

@@ -33,7 +33,9 @@ class MainActivity : AppCompatActivity() {
         sqliteHelper = SQLiteHelper(this)
         btnInsert.setOnClickListener{ addUser() }
         btnView.setOnClickListener { getUsers() }
-
+        adapter?.setOneClickItem {
+            Toast.makeText(this,it.name,Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun getUsers() {
@@ -57,6 +59,7 @@ class MainActivity : AppCompatActivity() {
             if (status > -1){
                 Toast.makeText(this,"User Added...",Toast.LENGTH_SHORT).show()
                 clearEditText()
+                getUsers()
             }else{
                 //Gestion de l'erreur
                 Toast.makeText(this , "User not saved...", Toast.LENGTH_SHORT).show()
